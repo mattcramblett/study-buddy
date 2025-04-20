@@ -4,6 +4,7 @@ import "./globals.css";
 import Providers from "./providers";
 import { Header } from "@/components/ui/header";
 import { UserBadge } from "@/components/auth/user-badge";
+import { HomeButton } from "@/components/brand/home-button";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -31,7 +32,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <Header>
-          <div />
+          <HomeButton />
           <UserBadge />
         </Header>
         <Providers>{children}</Providers>
