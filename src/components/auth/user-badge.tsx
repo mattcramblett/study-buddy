@@ -1,5 +1,5 @@
 import { getServerSession } from "next-auth/next";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { authOptions } from "@/lib/auth/nextauth/authOptions";
 import Image from "next/image";
 import { SignOutButton } from "@/components/auth/sign-out-button";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
@@ -22,13 +22,13 @@ export async function UserBadge() {
             width={32}
             height={32}
             alt="profile-pic"
-            src={session.user.image}
+            src={session?.user?.image || ""}
           />
         </PopoverTrigger>
         <PopoverContent className="flex flex-col items-start">
-          <div className="font-semibold text-sm">{session.user.name}</div>
+          <div className="font-semibold text-sm">{session?.user?.name}</div>
           <div className="text-sm text-muted-foreground">
-            {session.user.email}
+            {session?.user?.email}
           </div>
           <Separator className="my-4" />
           <SignOutButton />
