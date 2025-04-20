@@ -9,8 +9,12 @@ export function SignOutButton() {
 
   const handleSignOut = async () => {
     await signOut();
-    router.push("/");
+    router.replace("/");
   };
 
-  return <Button onClick={handleSignOut}>Sign out</Button>;
+  return (
+    <Button className="p-0" variant="link" onClick={handleSignOut}>
+      Sign out
+    </Button>
+  );
 }
