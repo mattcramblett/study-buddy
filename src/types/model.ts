@@ -6,5 +6,5 @@ import {
 
 export type User = typeof users.$inferSelect;
 export type Flashcard = typeof flashcards.$inferSelect;
-export type FlashCardSet = typeof flashcard_sets.$inferSelect;
+export type FlashcardSet = typeof flashcard_sets.$inferSelect;
 

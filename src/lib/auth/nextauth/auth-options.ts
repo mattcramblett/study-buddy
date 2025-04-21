@@ -1,4 +1,4 @@
-import { ensureUser } from "@/lib/user-repository";
+import { ensureUser } from "@/lib/repositories/user-repository";
 import { AuthOptions } from "next-auth"
 import GoogleProvider from "next-auth/providers/google"
 
