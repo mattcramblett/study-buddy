@@ -1,5 +1,5 @@
 import { getServerSession } from "next-auth/next";
-import { authOptions } from "@/lib/auth/nextauth/authOptions";
+import { authOptions } from "@/lib/auth/nextauth/auth-options";
 import Image from "next/image";
 import { SignOutButton } from "@/components/auth/sign-out-button";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
