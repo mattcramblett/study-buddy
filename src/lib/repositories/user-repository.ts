@@ -2,7 +2,7 @@
 import { db } from "@/db";
 import { users } from "@/db/schema";
 import { eq } from "drizzle-orm";
-import uuidv4 from "./utils/uuid-v4";
+import uuidv4 from "../utils/uuid-v4";
 
 export async function ensureUser(email: string) {
   const data = await db
