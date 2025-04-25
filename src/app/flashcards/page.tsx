@@ -9,12 +9,13 @@ export default async function FlashcardsPage() {
   const flashcardSets = await getFlashcardSets();
   return (
     <main className="w-full flex flex-col items-center">
-      <div className="container flex flex-wrap">
+      <div className="container flex flex-wrap gap-2">
         <div className="w-full mb-8">
           <h1 className="text-2xl font-semibold">Flashcards</h1>
           <Link href="/flashcards/create">
             <Button size="sm" variant="outline" className="mt-4">
               <Plus />
+              {"Create new set"}
             </Button>
           </Link>
         </div>

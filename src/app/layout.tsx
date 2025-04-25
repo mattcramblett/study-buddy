@@ -5,6 +5,7 @@ import Providers from "./providers";
 import { Header } from "@/components/ui/header";
 import { UserBadge } from "@/components/auth/user-badge";
 import { HomeButton } from "@/components/brand/home-button";
+import { Toaster } from "@/components/ui/sonner";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -27,7 +28,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark overflow-hidden h-full">
+    <html lang="en" className="dark h-full">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
@@ -36,6 +37,7 @@ export default function RootLayout({
           <UserBadge />
         </Header>
         <Providers>{children}</Providers>
+        <Toaster />
       </body>
     </html>
   );

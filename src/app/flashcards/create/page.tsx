@@ -1,13 +1,16 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import { Textarea } from "@/components/ui/textarea";
+import { createFlashcardSet } from "@/lib/server-actions/flashcard-set-actions";
 import uuidv4 from "@/lib/utils/uuid-v4";
-import { Delete, Plus, Trash } from "lucide-react";
-import { ChangeEventHandler, useState } from "react";
+import { Plus, Save, Trash } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { toast } from "sonner"
 
 export type FlashcardItem = {
   frontSide: string;
@@ -26,6 +29,23 @@ export default function CreateFlashcardsPage() {
   const [cards, setCards] = useState<FlashcardItem[]>([
     emptyFlashcard(uuidv4()),
   ]);
+  const router = useRouter();
+
+  const handleSubmit = async () => {
+    if (!title.trim()) {
+      toast.error("A title is required.");
+      return;
+    }
+
+    const uuid = await createFlashcardSet({
+      title: title.trim(),
+      flashcards: cards.map((c) => ({
+        frontSide: c.frontSide,
+        backSide: c.backSide,
+      })),
+    });
+    router.push(`/flashcards/${uuid}`);
+  };
 
   const handleUpdate =
     (correlationId: string) =>
@@ -63,9 +83,9 @@ export default function CreateFlashcardsPage() {
           />
           <Separator className="my-8" />
         </div>
-        <div className="w-full overflow-y-auto flex-1">
+        <div className="w-full overflow-y-auto">
           {cards.map((c) => (
-            <Card key={c.correlationId} className="px-4 pt-5 pb-3 mb-4">
+            <Card key={c.correlationId} className="px-2 md:px-4 pt-5 pb-3 mb-4">
               <div className="mb-4">
                 <label>Term</label>
                 <Textarea
@@ -101,10 +121,18 @@ export default function CreateFlashcardsPage() {
           ))}
           <Button
             variant="outline"
-            className="w-full mt-4"
+            className="w-full mt-4 mb-6"
+            title="Add flashcard"
             onClick={handleAddCard}
           >
             <Plus />
+            {"Add card"}
+          </Button>
+        </div>
+        <div>
+          <Button title="Save" className="w-full mb-12" onClick={handleSubmit}>
+            <Save />
+            {"Save"}
           </Button>
         </div>
       </div>
