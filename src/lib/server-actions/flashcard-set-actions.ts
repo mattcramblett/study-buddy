@@ -4,6 +4,7 @@ import { countFlashcardsForSets } from "../repositories/flashcard-repository";
 import {
   getAllByUserId,
   createFlashcardSet as saveSet,
+  getFlashcardSet as findSet,
 } from "../repositories/flashcard-set-repository";
 import { getUserOrThrow } from "./user-actions";
 
@@ -36,4 +37,9 @@ export async function createFlashcardSet(
 ): Promise<string> {
   const { id: userId } = await getUserOrThrow();
   return await saveSet(set, userId);
+}
+
+export async function getFlashcardSet(uuid: string) {
+  const { id: userId } = await getUserOrThrow();
+  return await findSet(uuid, userId);
 }

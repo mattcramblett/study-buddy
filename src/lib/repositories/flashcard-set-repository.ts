@@ -1,7 +1,7 @@
 "use server";
 import { db } from "@/db";
 import { flashcard_sets, flashcards } from "@/db/schema";
-import { eq, desc } from "drizzle-orm";
+import { eq, desc, and } from "drizzle-orm";
 import { FlashcardSetForCreate } from "../server-actions/flashcard-set-actions";
 import uuidv4 from "../utils/uuid-v4";
 
@@ -24,7 +24,7 @@ export async function createFlashcardSet(
       .values({ userId, name: set.title, uuid })
       .returning();
     const flashcardSetId = flashcardSet[0].id;
-    
+
     await tx.insert(flashcards).values(
       set.flashcards.map((fc) => ({
         flashcardSetId,
@@ -35,4 +35,19 @@ export async function createFlashcardSet(
   });
 
   return uuid;
+}
+
+export async function getFlashcardSet(uuid: string, userId: number) {
+  const set = (
+    await db
+      .select()
+      .from(flashcard_sets)
+      .where(
+        and(eq(flashcard_sets.uuid, uuid), eq(flashcard_sets.userId, userId)),
+      )
+      .limit(1)
+  )[0];
+
+  if (!set) throw "not found";
+  return set;
 }
