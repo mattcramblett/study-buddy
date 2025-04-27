@@ -51,3 +51,18 @@ export async function getFlashcardSet(uuid: string, userId: number) {
   if (!set) throw "not found";
   return set;
 }
+
+export async function getFlashcardSetById(id: number, userId: number) {
+  const set = (
+    await db
+      .select()
+      .from(flashcard_sets)
+      .where(
+        and(eq(flashcard_sets.id, id), eq(flashcard_sets.userId, userId)),
+      )
+      .limit(1)
+  )[0];
+
+  if (!set) throw "not found";
+  return set;
+}
