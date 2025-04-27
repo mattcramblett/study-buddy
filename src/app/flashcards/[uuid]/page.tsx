@@ -27,7 +27,7 @@ export default async function FlashcardSetPage({
           </Link>
         </div>
         <div className="size-full">
-          {flashcards.length && <FlashcardsViewer flashcards={flashcards} />}
+          {!!flashcards.length && <FlashcardsViewer flashcards={flashcards} />}
           {!flashcards.length && (
             <div className="text-2xl font-semibold">No flashcards</div>
           )}
